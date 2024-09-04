@@ -5,6 +5,11 @@
 #big{
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+body{
+	background-color: #1B1B1B;
+	color: antiquewhite;
+}
 .wrapper {
 	display: grid;
 	grid-template-columns: 2;
