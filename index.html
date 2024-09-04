@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Oapp</title>
+<link href="des.css" rel="stylesheet" type="text/css">
+	
+</head>
+
+<body>
+	<div id = "big" class="square">
+		<h1>Oapp</h1>
+	</div>
+	<div class = "wrapper">
+		<div id = "news" class = "one">
+			<h3>News</h3>
+			<script type = "module">
+				async function populate() {
+  				const requestURL =
+    				"resources/news-2024-09-03.json";
+				const request = new Request(requestURL);
+
+				const response = await fetch(request);
+  				const news = await response.json();
+				console.log(news);
+				lister(news);
+				}
+				function lister(obj){
+					const section = document.getElementById("news");
+					const news = obj.news;
+					let i = 1;
+					for(const n of news){
+						const block = document.createElement("div");
+						if (i % 2 == 1){
+							block.setAttribute('class','c1');
+						}
+						i = i+1;
+						const title = document.createElement("h2");
+						const snip = document.createElement("p");
+						const link = document.createElement("a");
+						link.setAttribute('href', n.link);
+						
+						title.textContent = n.title;
+						snip.textContent = n.snippet;
+						link.textContent = n.link;
+						
+						block.appendChild(title);
+						block.appendChild(snip);
+						block.appendChild(link);
+						section.appendChild(block);
+						
+					}
+				}
+				populate();
+			</script>
+		</div>
+		<div id = "earnings" class = "two">
+			<h3>Earnings</h3>
+			<script type = "module">
+				async function populateE() {
+  				const requestURL =
+    				"resources/transcripts/HRL_output.json";
+				const request = new Request(requestURL);
+
+				const response = await fetch(request);
+  				const info = await response.json();
+				console.log(info);
+				listerE(info);
+				}
+				function listerE(obj){
+					const section = document.getElementById("earnings");
+					const summ = obj.summary;
+					const body = obj.body;
+					
+						const block = document.createElement("div");
+						block.setAttribute('class', "e1");
+						const name = document.createElement("h3");
+						const acq = document.createElement("p");
+						const divest = document.createElement("p");
+						const sumMA = document.createElement("p");
+						const sumCh = document.createElement("p");
+						const sumDiv = document.createElement("p");
+						
+						
+						name.textContent = summ.comp;
+						acq.textContent = "M&A: " + summ.acquisitions;
+						divest.textContent = "Divestitures and Spin-offs: " + summ.divestitures + " " + summ.spinoffs;
+						sumMA.textContent = "M&A Details: \n" +body.mergers_and_acquisitions.description;
+						sumCh.textContent = "Strategy Changes: " + body.strategy_changes.description;
+						sumDiv.textContent = "Spin-offs and Divestitures Details: "+body.spinoffs_and_divestitures.description;
+						
+						block.appendChild(name);
+						block.appendChild(acq);
+						block.appendChild(divest);
+						block.appendChild(sumMA);
+						block.appendChild(sumCh);
+						block.appendChild(sumDiv);
+						section.appendChild(block);
+						
+					}
+				
+				populateE();
+			</script>
+			
+		</div>
+		<div id = "ideas" class = "three">
+			<p1>ideas</p1>
+		</div>
+	</div>
+</body>
+</html>
